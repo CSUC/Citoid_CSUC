@@ -63,13 +63,6 @@ function doWeb(doc, url) {
 }
 
 function scrape(doc, url) {
-	ZU.doGet(url, function(text) {
-
-		var trans = Zotero.loadTranslator('import');
-		trans.setTranslator('9cb70025-a888-4a29-a210-93ec52da40d4');//https://github.com/zotero/translators/blob/master/BibTeX.js
-		trans.setString(bibTexContent);
-
-		trans.setHandler('itemDone', function (obj, item) {
 			
 			//title
 			var titles = ZU.xpath(doc, '//meta[contains(@name, "DC.title")]');
@@ -124,9 +117,5 @@ function scrape(doc, url) {
 		}
 
 		item.complete();
-	});
-
-trans.translate();
-});
 
 }
