@@ -133,3 +133,61 @@ function scrape(doc, url) {
 		item.complete();
 
 }
+
+/** BEGIN TEST CASES **/
+var testCases = [
+	{
+		"type": "web",
+		"url": "http://tdx.cat/handle/10803/393947",
+		"items": [
+			{
+				"itemType": "thesis",
+				"title": "El deporte en la vida y en la obra de Manuel Vázquez Montalbán: 1939-2003",
+				"creators": [
+					{
+						"lastName": "Osúa Quintana",
+						"firstName": "Jordi",
+						"creatorType": "creator"
+					}
+				],
+				"language": "spa",
+				"libraryCatalog": "TDX",
+				"shortTitle": "El deporte en la vida y en la obra de Manuel Vázquez Montalbán",
+				"thesisType": "Ph.D. Thesis",
+				"university": "Universitat de Barcelona",
+				"url": "http://hdl.handle.net/10803/393947",
+				"attachments": [],
+				"tags": [],
+				"notes": [],
+				"seeAlso": []
+			}
+		]
+	},
+	{
+		"type": "web",
+		"url": "http://tdx.cat/handle/10803/393946",
+		"items": [
+			{
+				"itemType": "thesis",
+				"title": "Valoración nutricional de jóvenes nadadoras de natación sincronizada",
+				"creators": [
+					{
+						"lastName": "Carrasco Marginet",
+						"firstName": "Marta",
+						"creatorType": "creator"
+					}
+				],
+				"language": "spa",
+				"libraryCatalog": "TDX",
+				"thesisType": "Ph.D. Thesis",
+				"university": "Universitat de Barcelona",
+				"url": "http://hdl.handle.net/10803/393946",
+				"attachments": [],
+				"tags": [],
+				"notes": [],
+				"seeAlso": []
+			}
+		]
+	}
+]
+/** END TEST CASES **/
