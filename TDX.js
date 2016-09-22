@@ -1,3 +1,19 @@
+
+{
+	"translatorID": "dd2d7c63-0c4b-4da4-b1d8-e72c7445c1e0",
+	"label": "Tesis Doctorals en Xarxa",
+	"creator": "CSUC",
+	"target": "^https?://(?:www\\.)?(tdx\.cat|tesisenred\.net)",
+	"minVersion": "3.0",
+	"maxVersion": "",
+	"priority": 100,
+	"inRepository": true,
+	"translatorType": 4,
+	"browserSupport": "gcsb",
+	"lastUpdated": "2016-09-22 15:33:33"
+}
+
+
 function detectWeb(doc, url) {
 	var type = ZU.xpath(doc, '//meta[@name="DC.type"]/@content');
 	if (type.length>0) {
