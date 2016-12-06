@@ -20,7 +20,7 @@ function detectWeb(doc, url) {
 		if (mappingTable[type[0].textContent]) {
 			return mappingTable[type[0].textContent];
 		} else {
-			return "doctoralThesis";
+			return "thesis";
 		}
 	}else{
 		return "multiple";
@@ -28,7 +28,7 @@ function detectWeb(doc, url) {
 }
 
 var mappingTable = {
-	"info:eu-repo/semantics/doctoralThesis":"doctoralThesis",
+	"info:eu-repo/semantics/doctoralThesis":"thesis",
 }
 
 
@@ -83,7 +83,7 @@ function scrape(doc, url) {
 			//add DATE
 			var date = ZU.xpath(doc, '//meta[@name="citation_date"]');
 			if (date.length>0) {
-					item.Date = date[0].content
+					item.date = date[0].content
 			}
 			
 			//add abstract
@@ -92,8 +92,15 @@ function scrape(doc, url) {
 					item.abstract = abstract[0].content
 			}
 			
-			//add DOI
-			var identfiers = ZU.xpath(doc, '//meta[contains(@name, "DC.identifier")]');
+			if ( ! item.abstract ) {
+				var abstract = ZU.xpath(doc, '//meta[contains(@name, "DCTERMS.abstract")]');
+				if (abstract.length>0) {
+						item.abstract = abstract[0].content
+				}			
+			}
+			
+			//add URL
+			var identfiers = ZU.xpath(doc, '//meta[contains(@scheme, "DCTERMS.URI")]');
 			if (identfiers.length>0) {
 					item.url=identfiers[0].content;
 			}
@@ -109,6 +116,8 @@ function scrape(doc, url) {
 			if (publisher.length>0) {
 				for (var i=0; i<publisher.length; i++) {
 					item.publisher = publisher[i].content;
+					item.university = publisher[i].content;
+
 				}
 				
 			}
@@ -153,7 +162,7 @@ function scrape(doc, url) {
 					item.pages="p. 1-"+cleanpages;
 			}
 			//add type
-			item.type="Ph.D. Thesis";
+			item.thesisType="Ph.D. Thesis";
 			
 		item.complete();
 
@@ -175,14 +184,26 @@ var testCases = [
 						"creatorType": "creator"
 					}
 				],
+				"date": "2013-10-29",
 				"language": "spa",
-				"libraryCatalog": "TDX",
+				"libraryCatalog": "Tesis Doctorals en Xarxa",
 				"shortTitle": "El deporte en la vida y en la obra de Manuel Vázquez Montalbán",
 				"thesisType": "Ph.D. Thesis",
 				"university": "Universitat de Barcelona",
 				"url": "http://hdl.handle.net/10803/393947",
 				"attachments": [],
-				"tags": [],
+				"tags": [
+					"070",
+					"79",
+					"Ciències de l'Educació",
+					"Deportes",
+					"Esports",
+					"Periodisme esportiu",
+					"Periodismo deportivo",
+					"Sports",
+					"Sports journalism",
+					"Vázquez Montalbán, Manuel, 1939-2003"
+				],
 				"notes": [],
 				"seeAlso": []
 			}
@@ -202,13 +223,29 @@ var testCases = [
 						"creatorType": "creator"
 					}
 				],
+				"date": "2015-05-13",
 				"language": "spa",
-				"libraryCatalog": "TDX",
+				"libraryCatalog": "Tesis Doctorals en Xarxa",
 				"thesisType": "Ph.D. Thesis",
 				"university": "Universitat de Barcelona",
 				"url": "http://hdl.handle.net/10803/393946",
 				"attachments": [],
-				"tags": [],
+				"tags": [
+					"79",
+					"Body composition",
+					"Ciències de l'Educació",
+					"Composició corporal",
+					"Composición corporal",
+					"Hematologia",
+					"Hematology",
+					"Hematología",
+					"Natació sincronitzada",
+					"Natación sincronizada",
+					"Nutrició",
+					"Nutrición",
+					"Nutrition",
+					"Synchronized swimming"
+				],
 				"notes": [],
 				"seeAlso": []
 			}
