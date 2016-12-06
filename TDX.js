@@ -3,7 +3,7 @@
 	"translatorID": "dd2d7c63-0c4b-4da4-b1d8-e72c7445c1e0",
 	"label": "Tesis Doctorals en Xarxa",
 	"creator": "CSUC",
-	"target": "^https?://(?:www\\.)?(tdx\.cat|tesisenred\.net)",
+	"target": "^https?://(www\.)?(tdx\.cat|tesisenred\.net)",
 	"minVersion": "3.0",
 	"maxVersion": "",
 	"priority": 100,
@@ -37,14 +37,13 @@ var mappingTable = {
 function doWeb(doc, url) {
 	if (detectWeb(doc, url) == "multiple") {
 		
-				var hits=[];
-	var urls=[];
-	var results=ZU.xpath(doc,'//div[@class="artifact-title"]/a');
-	for (var i in results) {
-		hits.push(results[i].href);
-
-			}
-			
+		var hits=[];
+		var urls=[];
+		var results=ZU.xpath(doc,'//div[@class="artifact-title"]/a');
+		for (var i in results) {
+			hits.push(results[i].href);
+		}
+		
 		Zotero.selectItems(hits, function (items) {
 			if (!items) {
 				return true;
@@ -139,8 +138,8 @@ function scrape(doc, url) {
 		
 			//add pages
 			var pages =ZU.xpath(doc, '//*[@element="format" and @qualifier="extent"]');
-			var cleanpages= pages[0].textContent.split('p.')[0];
 			if (pages.length>0) {
+					var cleanpages= pages[0].textContent.split('p.')[0];
 					item.pages="p. 1-"+cleanpages;
 			}
 			//add type
