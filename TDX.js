@@ -113,28 +113,38 @@ function scrape(doc, url) {
 				
 			}
 			
+			//add tags -> from subjects
+			var tags = ZU.xpath(doc, '//meta[contains(@name, "DC.subject")]');
+			if (tags.length>0) {
+					item.tags = [];
+					for (var t=0; t<tags.length; t++) {
+						item.tags.push( tags[t].content );
+					}
+			}
+					
+			
 			var authors = ZU.xpath(doc, '//meta[@name="citation_author"]');
 			if (authors) {
 				item.creators = [];
 				for (var a=0; a<authors.length; a++) {
 					var authorsText = authors[a].content;
-				var authorsType = authors[a].name.substr(3);//either creator or contributer
-				var authorParts = authorsText.split(',');
-				//distinguish between lastName (every letter is in uppercase) from firstName
-				//but there might also be just initials (e.g. "D.") from the firstName
-				var firstName = "";
-				var lastName = "";
-				var splitPos=0;
-				
-				if (authorParts.length>1){
-				firstName=authorParts[1];
-				lastName= authorParts[0];
-				}else{
-					firstName=authorParts[0];
+					var authorsType = authors[a].name.substr(3);//either creator or contributer
+					var authorParts = authorsText.split(',');
+					//distinguish between lastName (every letter is in uppercase) from firstName
+					//but there might also be just initials (e.g. "D.") from the firstName
+					var firstName = "";
+					var lastName = "";
+					var splitPos=0;
+					
+					if (authorParts.length>1){
+					firstName=authorParts[1];
+					lastName= authorParts[0];
+					}else{
+						firstName=authorParts[0];
+					}
+					item.creators.push( {lastName:lastName.trim(), firstName:firstName.trim(), creatorType:"creator" });
 				}
-				item.creators.push( {lastName:lastName.trim(), firstName:firstName.trim(), creatorType:"creator" });
 			}
-		}
 		
 			//add pages
 			var pages =ZU.xpath(doc, '//*[@element="format" and @qualifier="extent"]');
