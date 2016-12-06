@@ -89,13 +89,13 @@ function scrape(doc, url) {
 			//add abstract
 			var abstract = ZU.xpath(doc, '//meta[@name="citation_abstract"]');
 			if (abstract.length>0) {
-					item.abstract = abstract[0].content
+					item.abstractNote = abstract[0].content
 			}
 			
 			if ( ! item.abstract ) {
 				var abstract = ZU.xpath(doc, '//meta[contains(@name, "DCTERMS.abstract")]');
 				if (abstract.length>0) {
-						item.abstract = abstract[0].content
+						item.abstractNote = abstract[0].content
 				}			
 			}
 			
@@ -159,7 +159,8 @@ function scrape(doc, url) {
 			var pages =ZU.xpath(doc, '//*[@element="format" and @qualifier="extent"]');
 			if (pages.length>0) {
 					var cleanpages= pages[0].textContent.split('p.')[0];
-					item.pages="p. 1-"+cleanpages;
+					// item.pages="p. 1-"+cleanpages;
+					item.numPages = parseInt( cleanpages, 10 );
 			}
 			//add type
 			item.thesisType="Ph.D. Thesis";
